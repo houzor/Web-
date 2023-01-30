@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>登录 </title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/Stisla_style.css">
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/jquery.pwstrength.min.js"></script>
+  <script src="./js/sweetalert2.all.min.js"></script>
+<body>
+    <div id="app">
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class=" col-sm-8  ol-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>登录</h4>
+              </div>
+              <form action="index.html" method="GET" class="needs-validation" novalidate="">
+
+                <div class="card-body">
+                  <div class="form-group login-form-item">
+                    <label for="email">邮箱</label>
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <div id="invalid-feedback1" class="invalid-feedback">
+                      请填写邮箱
+                    </div>
+                  </div>
+                  <div class="form-group login-form-item">
+                    <div class="d-block">
+                      <label for="password" class="control-label">密码</label>
+                      <div class="float-right">
+                        <a href="#" class="text-small">
+                          忘记密码？
+                        </a>
+                      </div>
+                    </div>
+                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                    <div id="invalid-feedback2" 
+                    class="invalid-feedback">
+                      请填写密码
+                    </div>
+                  </div>
+                  <div class="form-group login-form-item">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <label class="custom-control-label" for="remember-me">记住我</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login" tabindex="4">
+                      登录
+                    </button>
+                  </div>
+              </form>         
+            </div>
+          </div>
+          <div class="mt-5 text-muted text-center login-form-item">
+            还没有账号？<a href="register.html">马上注册 👉</a>
+          </div>
+
+        </div>
+      </div>
+  </div>
+  </section>
+  </div>
+  
+  
+
+
+<script>
+  $(function () {
+
+    $(".needs-validation").submit(function () {
+      var form = $(this);
+      if (form[0].checkValidity() === false) {
+        //检测到为空，阻止表单提交和事件冒泡
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      //添加空的类，然后就会显示空的东西
+      form.addClass('was-validated');
+    });
+
+  }); 
+</script>
+
+ <script>
+
+  function checkPassword() {
+    //1.获取密码值
+    var password = $("#password").val();
+    //2.定义正则
+    var reg_password = /^\w{6,20}$/;
+    //3.判断，给出提示信息
+    var flag = reg_password.test(password);
+    if (flag) {
+      //密码合法
+    } else {
+      swal({
+        type: 'error',
+        title: '密码长度为6-20位之间',
+        showCloseButton: true,
+      })
+    }
+    // 4.返回校验是否通过
+    return flag;
+  }
+  
+  function checkEmail() {
+        //1.获取邮箱值
+        var email = $("#email").val();
+        //2.定义正则
+        var reg_email = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$/
+        //3.判断，给出提示信息
+        var flag = reg_email.test(email);
+        if (flag) {
+          //邮箱合法
+        } else {
+          swal({
+            type: 'error',
+            title: '请填写正确的邮箱格式',
+            showCloseButton: true,
+          })
+        }
+        // 4.返回校验是否通过
+        return flag;
+      }
+
+  function login() {
+          //阻止表单默认提交行为
+          $(".needs-validation").submit(function () {
+            var form = $(this);
+            event.preventDefault();
+          });
+          console.log("调用了");
+          if ($("#email").val() == localStorage.getItem("myemail") && $("#password").val() == localStorage.getItem("mypassword")
+          ) {
+            swal({
+              type: 'success',
+              title: '登录成功',
+              showCloseButton: true,
+            })
+            setTimeout(function () {
+              window.location.replace("./index.html")
+            }, 3000);
+          }
+        }
+
+  $("#email").blur(checkEmail);
+  $("#password").blur(checkPassword);
+  console.log(localStorage.getItem("myemail") )
+  console.log(localStorage.getItem("mypassword"))
+  
+  $(".login").click(function () {
+      login();
+    });
+  </script>
+
+</body>
+
+</html>

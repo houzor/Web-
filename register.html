@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/Stisla_style.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.pwstrength.min.js"></script>
+    <script src="./js/sweetalert2.all.min.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>注册</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <form action="login.html" method="get" class="needs-validation" novalidate="">
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-sm-12 col-xs-12">
+                                            <label for="name">昵称</label>
+                                            <input id="name" type="text" class="form-control" name="name" required
+                                                autofocus>
+                                            <div class="invalid-feedback">
+                                                    请填写昵称
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-sm-12 col-xs-12">
+                                            <label for="email">邮箱</label>
+                                            <div class="input-group">
+                                                <input type="text" id="email" class="form-control col-7" required>
+                                                <select class="custom-select input-group-append col-5"
+                                                    id="email_postfix" required style="border-top-right-radius: .25rem;
+                          border-bottom-right-radius: .25rem;">
+                                                    <option value="@gmail.com" selected="">@gmail.com</option>
+                                                    <option value="@qq.com">@qq.com</option>
+                                                    <option value="@outlook.com">@outlook.com</option>
+                                                    <option value="@163.com">@163.com</option>
+                                                    <option value="@126.com">@126.com</option>
+                                                    <option value="@hotmail.com">@hotmail.com</option>
+                                                    <option value="@foxmail.com">@foxmail.com</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    请填写邮箱
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6 col-sm-12 col-xs-12">
+                                            <label for="phone" class="d-block">手机号</label>
+                                            <input id="phone" type="text" class="form-control " data-indicator="pwindicator" name="phone"
+                                                required>
+
+                                            <div class="invalid-feedback">
+                                                请填写手机号
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-sm-12 col-xs-12">
+                                            <label for="passwd" class="d-block">密码</label>
+                                            <input id="passwd" type="password" class="form-control pwstrength"
+                                                data-indicator="pwindicator" name="passwd" required>
+                                            <div id="pwindicator" class="pwindicator">
+                                                <div class="bar"></div>
+                                                <div class="label"></div>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                请填写密码
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6 col-sm-12 col-xs-12">
+                                            <label for="repasswd" class="d-block">确认密码</label>
+                                            <input id="repasswd" type="password" class="form-control" name="repasswd"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                请再次填写密码
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="register-confirm" onclick="register()"
+                                            class="btn btn-primary btn-lg btn-block">
+                                            注册
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mt-5 text-muted text-center">
+                            已经有账号了？<a href="login.html">马上登录 👉</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script>
+
+    function checkName() {
+                //1.获取邮箱值
+                var name = $("#name").val();
+                //2.定义正则
+                var reg_name = /^[\u4e00-\u9fa5-a-zA-Z0-9_-]{4,16}$/
+                //3.判断，给出提示信息
+                var flag = reg_name.test(name);
+                if (flag) {
+                    //用户名合法
+                } else {
+                    swal({
+                        type: 'error',
+                        title: '请输入合法的用户名，4到16位（中文，字母，数字，下划线，减号）',
+                        showCloseButton: true,
+                    })
+                }
+                // 4.返回校验是否通过
+                return flag;
+            }
+    function checkPhone() {
+            //1.获取邮箱值
+            var phone = $("#phone").val();
+            //2.定义正则
+            var reg_phone = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/
+            //3.判断，给出提示信息
+            var flag = reg_phone.test(phone);
+            if (flag) {
+                //手机号合法
+            } else {
+                swal({
+                    type: 'error',
+                    title: '请填写正确的手机格式',
+                    showCloseButton: true,
+                })
+            }
+            // 4.返回校验是否通过
+            return flag;
+        }
+    function checkPassword() {
+                    //1.获取邮箱值
+                    var password = $("#passwd").val();
+                    var repassword = $("#repasswd").val();
+                    if (password==repassword) {
+                        //手机号合法
+                    } else {
+                        swal({
+                            type: 'error',
+                            title: '两次输入的密码不一致',
+                            showCloseButton: true,
+                        })
+                    }
+                    // 4.返回校验是否通过
+                    return flag;
+                }
+    function register() {
+                $(".needs-validation").submit(function () {
+                    var form = $(this);
+                    event.preventDefault();
+                });
+                if ($("#name").val() || $("#email").val() || $("#phone").val() || $("#passwd").val() || $("#repasswd").val()) {
+                    var email = $("#email").val() + $("#email_postfix").val();
+                    var password = $("#passwd").val();
+                    var name=$('#name').val();
+                    var phone=$('phone').val();
+                    localStorage.setItem("myname", name);
+                    localStorage.setItem("myphone",phone)
+                    localStorage.setItem("myemail", email);
+                    localStorage.setItem("mypassword", password);
+                    swal({
+                        type: 'success',
+                        title: '注册成功',
+                        showCloseButton: true,
+                    })
+                    setTimeout(function () {
+                        window.location.replace("./login.html")
+                    }, 3000);
+                }
+
+            }
+    $("#name").blur(checkName);
+    $("#phone").blur(checkPhone);
+    $('#repasswd').blur(checkPassword);
+    $(".pwstrength").pwstrength({
+                    texts: ['超级弱', '弱', '一般', '不错', '很强👌']
+                });
+    $(function () {
+            $(".needs-validation").submit(function () {
+                var form = $(this);
+                if (form[0].checkValidity() === false) {
+                    //检测到为空，阻止表单提交和事件冒泡
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                //添加空的类，然后就会显示空的东西
+                form.addClass('was-validated');
+            });
+
+        });
+</script>
+</html>
